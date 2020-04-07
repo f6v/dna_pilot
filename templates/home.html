@@ -5,4 +5,7 @@
 
 {% block content %}
 <h1>DNA Pilot Homepage</h1>
+{% if user.is_authenticated %}
+  <p>Logged in as: {{ user.email }} </p>
+{% endif %}
 {% endblock content %}
