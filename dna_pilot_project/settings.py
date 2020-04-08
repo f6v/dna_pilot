@@ -24,6 +24,7 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
+    'variants.apps.VariantsConfig',
 ]
 
 MIDDLEWARE = [
