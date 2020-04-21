@@ -4,8 +4,35 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<h1>DNA Pilot Homepage</h1>
-{% if user.is_authenticated %}
-  <p>Logged in as: {{ user.email }} </p>
-{% endif %}
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>DNA Pilot</h1>
+      <p class="lead text-muted">Upload your 23andme data and start exploring your genome</p>
+      <p>
+        <a href="{% url 'account_signup' %}" class="btn btn-primary my-2">Sign up now</a>
+      </p>
+    </div>
+  </section>
+
+  <div class="container marketing">
+    <div class="row">
+      <div class="col-lg-4">
+        <h3>Explore your genome</h3>
+        <p>Find out about your genetic variants and explore data visualisations.</p>
+      </div>
+      <div class="col-lg-4">
+        <h3>Get recommendations</h3>
+        <p>Nutrition, excercise, sleep and more! Access our knowledge base with the tailored recommendations.</p>
+      </div>
+      <div class="col-lg-4">
+        <h3>Scientific publications</h3>
+        <p>Quickly access thousands of scientific studies to bring you insights from the сutting-edge genomics research.</p>
+      </div>
+    </div>
+  </div>
+
+  {% if user.is_authenticated %}
+    <p>Logged in as: {{ user.email }} </p>
+  {% endif %}
 {% endblock content %}

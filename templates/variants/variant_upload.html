@@ -10,8 +10,8 @@
     <form action="{% url 'variant_upload' %}" enctype="multipart/form-data" method="post">
       {% csrf_token %}
       <div class="form-group">
-        <input type="file" class="custom-file-input form-control" id="vcfFile" name="vcf">
-        <label class="custom-file-label" for="vcfFile">Choose file</label>
+        <input type="file" class="custom-file-input form-control" id="vcf_file" name="vcf_file">
+        <label class="custom-file-label" for="vcf_file">Choose file</label>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

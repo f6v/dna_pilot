@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'allauth',
     'allauth.account',
+    #'explorer',
 
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
@@ -115,7 +116,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'variant_list'
 ACCOUNT_LOGOUT_REDIRECT = 'home'
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -123,3 +124,6 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+# EXPLORER_CONNECTIONS = { 'Default': 'default' }
+# EXPLORER_DEFAULT_CONNECTION = 'default'

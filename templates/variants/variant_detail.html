@@ -1,0 +1,78 @@
+{% extends '_base.html' %}
+
+{% block title %}Variant Details{% endblock title %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-9">
+      <h4>Your variant</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">rsid</th>
+            <th scope="col">chromosome</th>
+            <th scope="col">position</th>
+            <th scope="col">genotype</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ variant.rsid }}</td>
+            <td>{{ variant.chromosome }}</td>
+            <td>{{ variant.position }}</td>
+            <td>{{ variant.genotype }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Recommendations</h4>
+      {% for recommendation in variant.recommendations %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <p class="card-text">{{ recommendation.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+
+      <h4>Publications</h4>
+      <div class="row">
+        {% for publication in variant.publications %}
+          <div class="col-sm-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ publication.trait }}</h5>
+                <p class="card-text">{{ publication.text }}</p>
+                <a href="{{ publication.pubmed_url }}" class="card-link" target="_blank">Pubmed</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    </div>
+    <div class="col">
+      <div class="small-ideogram">
+        <!-- The ideogram goes here. -->
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+
+    var config = {
+      organism: 'human',
+      chromosome: '{{ variant.chromosome }}',
+      chrHeight: 600,
+      orientation: 'vertical',
+      container: '.small-ideogram',
+      annotations: [{
+        chr: '{{ variant.chromosome }}',
+        start: {{ variant.position }},
+        stop: {{ variant.position }}
+      }]
+    };
+
+    var ideogram = new Ideogram(config);
+
+  </script>
+
+{% endblock content %}
