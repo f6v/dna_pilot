@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+
+{% block title %}Variants{% endblock title %}
+
+{% block content %}
+  {% if user_variant_list %}
+    <h3>Your variants</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">rsid</th>
+          <th scope="col">chromosome</th>
+          <th scope="col">position</th>
+          <th scope="col">genotype</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for user_variant in user_variant_list %}
+        <tr>
+          <th><a href="{{ user_variant.get_absolute_url }}">{{ user_variant.rsid }}</a></th>
+          <td>{{ user_variant.chromosome }}</td>
+          <td>{{ user_variant.position }}</td>
+          <td>{{ user_variant.genotype }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h3>You don't have any data yet</h3>
+    <a href="{% url 'variant_upload' %}" class="btn btn-primary">Upload now</a>
+  {% endif %}
+{% endblock content %}

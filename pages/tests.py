@@ -16,9 +16,6 @@ class HomepageTests(SimpleTestCase):
     def test_homepage_template(self):
         self.assertTemplateUsed(self.response, 'home.html')
 
-    def test_homepage_contains_correct_html(self):
-        self.assertContains(self.response, 'Homepage')
-
     def test_homepage_url_resolves_homepageview(self):
         view = resolve('/')
         self.assertEqual(
