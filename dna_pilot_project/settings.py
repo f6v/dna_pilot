@@ -23,8 +23,6 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'allauth',
-    'allauth.account',
-    #'explorer',
 
     'users.apps.UsersConfig',
     'pages.apps.PagesConfig',
@@ -128,3 +126,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')

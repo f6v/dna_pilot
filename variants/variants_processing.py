@@ -1,4 +1,5 @@
 import requests
+from django.contrib.auth import get_user_model
 
 from .models import Variant, UserVariant, Publication
 
@@ -21,8 +22,8 @@ def fetch_publication(variant):
         if 'gwassnps' in response_entry:
             create_publication(response_entry['gwassnps'], variant)
 
-def process_variant(line, current_user):
-    variant_line = line.decode().strip()
+def process_variant(line, user):
+    variant_line = line.strip()
     if not variant_line.startswith("#"):
         variant_data = variant_line.split('\t')
         variant, _ = Variant.objects.get_or_create(
@@ -34,11 +35,14 @@ def process_variant(line, current_user):
         )
         user_variant = UserVariant.objects.create(
             variant=variant,
-            user=current_user,
+            user=user,
             genotype=variant_data[3],
         )
-        fetch_publication(variant)
+        #fetch_publication(variant)
 
-def handle_uploaded_file(file, current_user):
-    for line in file:
-        process_variant(line, current_user)
+def process_vcf(vcf_content, user_id):
+    user = get_user_model().objects.get(id=user_id)
+    lines = vcf_content.split('\n')
+
+    for line in lines:
+        process_variant(line, user)
