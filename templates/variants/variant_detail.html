@@ -26,10 +26,10 @@
       </table>
 
       <h4>Recommendations</h4>
-      {% for recommendation in variant.recommendations %}
+      {% for rec in recommendations %}
         <div class="card mb-3">
           <div class="card-body">
-            <p class="card-text">{{ recommendation.text }}</p>
+            <p class="card-text">{{ rec.text }}</p>
           </div>
         </div>
       {% endfor %}
