@@ -4,23 +4,42 @@ services:
   web:
     build: .
     command: gunicorn dna_pilot_project.wsgi -b 0.0.0.0:8000
-    environment:
-      - ENVIRONMENT=development
-      - SECRET_KEY=$SECRET_KEY
-      - DATABASE_URL=$DATABASE_URL
-      - DEBUG=1
+    env_file:
+      - .env
     volumes:
       - .:/code
     ports:
       - 8000:8000
     depends_on:
       - db
+
+  celery:
+    build: .
+    command: celery -A dna_pilot_project worker -l info
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+
   db:
     image: postgres:11
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+
+
+  # redis:
+  #   image: 'bitnami/redis:latest'
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #   ports:
+  #     - '6379:6379'
 
 volumes:
   postgres_data:

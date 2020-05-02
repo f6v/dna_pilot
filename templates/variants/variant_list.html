@@ -25,6 +25,25 @@
       {% endfor %}
       </tbody>
     </table>
+
+    <div class="pagination">
+      <span class="step-links">
+          {% if user_variant_list.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ user_variant_list.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current">
+              Page {{ user_variant_list.number }} of {{ user_variant_list.paginator.num_pages }}.
+          </span>
+
+          {% if user_variant_list.has_next %}
+              <a href="?page={{ user_variant_list.next_page_number }}">next</a>
+              <a href="?page={{ user_variant_list.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+    </div>
+
   {% else %}
     <h3>You don't have any data yet</h3>
     <a href="{% url 'variant_upload' %}" class="btn btn-primary">Upload now</a>

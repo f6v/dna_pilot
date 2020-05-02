@@ -1,15 +1,14 @@
 from django.contrib import admin
-from .models import Variant, Recommendation
+from django.urls import re_path
+
+from .models import Publication
 
 
-class RecommendationInline(admin.TabularInline):
-    model = Recommendation
+class PublicationAdmin(admin.ModelAdmin):
+    list_display = (
+        "rsid",
+        "title",
+    )
 
 
-class VariantAdmin(admin.ModelAdmin):
-    inlines = [
-        RecommendationInline
-    ]
-    list_display = ("rsid",)
-
-admin.site.register(Variant, VariantAdmin)
+admin.site.register(Publication, PublicationAdmin)
