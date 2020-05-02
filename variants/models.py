@@ -11,9 +11,6 @@ class UserVariant(models.Model):
     genotype = models.CharField(max_length=2)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
 
-    def recommendations(self):
-        pass
-
     def publications(self):
         pass
 
@@ -25,14 +22,14 @@ class UserVariant(models.Model):
 
 
 class Recommendation(models.Model):
-    rsid = models.CharField(max_length=20)
-    text = models.CharField(max_length=1000)
+    rsid = models.TextField()
+    text = models.TextField()
 
 
 class Publication(models.Model):
-    rsid = models.CharField(max_length=20)
-    title = models.CharField(max_length=300)
-    trait = models.CharField(max_length=300)
+    rsid = models.TextField()
+    title = models.TextField()
+    trait = models.TextField()
     pubmed_id = models.IntegerField()
 
     def pubmed_url(self):

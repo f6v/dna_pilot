@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.core.paginator import Paginator
 
 from .forms import UploadFileForm
-from .models import UserVariant, Recommendation
-from .tasks import process_file
+from .models import UserVariant, Recommendation, Publication
+from .tasks import process_vcf
 from .object_storage import save_vcf
 
 
@@ -39,7 +39,7 @@ class VariantUploadView(LoginRequiredMixin, TemplateView):
         if form.is_valid():
             vcf_file = request.FILES["vcf_file"]
             vcf_uid = save_vcf(vcf_file)
-            process_file.delay(vcf_uid, request.user.id)
+            process_vcf.delay(vcf_uid, request.user.id)
 
             return HttpResponseRedirect(reverse("variant_list"))
 
@@ -54,6 +54,9 @@ class VariantDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["recommendations"] = Recommendation.objects.filter(
+            rsid=self.object.rsid
+        )
+        context['publications'] = Publication.objects.filter(
             rsid=self.object.rsid
         )
 

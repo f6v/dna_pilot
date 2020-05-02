@@ -36,13 +36,13 @@
 
       <h4>Publications</h4>
       <div class="row">
-        {% for publication in variant.publications %}
+        {% for pub in publications %}
           <div class="col-sm-6">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">{{ publication.trait }}</h5>
-                <p class="card-text">{{ publication.text }}</p>
-                <a href="{{ publication.pubmed_url }}" class="card-link" target="_blank">Pubmed</a>
+                <h5 class="card-title">{{ pub.trait }}</h5>
+                <p class="card-text">{{ pub.title }}</p>
+                <a href="{{ pub.pubmed_url }}" class="card-link" target="_blank">Pubmed</a>
               </div>
             </div>
           </div>
