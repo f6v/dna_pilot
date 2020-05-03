@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from django.core.files.base import ContentFile
+from django.contrib.auth.models import Permission
 
 from .models import UserVariant, Recommendation, Publication
 from .tasks import fetch_publications, process_vcf
@@ -26,7 +27,10 @@ class VariantsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Submit")
 
-    def test_variant_detail(self):
+    def test_variant_detail_with_permission(self):
+        permission = Permission.objects.get(codename='premium_status')
+        self.user.user_permissions.add(permission)
+
         variant = UserVariant.objects.create(
             user=self.user,
             rsid="rs4477212",
@@ -51,6 +55,22 @@ class VariantsTests(TestCase):
         self.assertContains(response, recommendation.text)
         self.assertContains(response, publication.title)
         self.assertContains(response, publication.trait)
+
+    def test_variant_detail_without_permission(self):
+        variant = UserVariant.objects.create(
+            user=self.user,
+            rsid="rs4477212",
+            chromosome="1",
+            position="82154",
+            genotype="AA",
+        )
+        recommendation = Recommendation.objects.create(
+            rsid="rs4477212", text="Do not eat sugar."
+        )
+
+        response = self.client.get(variant.get_absolute_url())
+
+        self.assertNotContains(response, recommendation.text)
 
     def test_list_with_no_variants(self):
         response = self.client.get(reverse("variant_list"))

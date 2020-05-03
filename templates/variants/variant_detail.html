@@ -26,13 +26,17 @@
       </table>
 
       <h4>Recommendations</h4>
-      {% for rec in recommendations %}
-        <div class="card mb-3">
-          <div class="card-body">
-            <p class="card-text">{{ rec.text }}</p>
+      {% if prompt_purchase_premium %}
+          <a class="btn btn-primary" href="{% url 'orders' %}" role="button">Get Premium</a>
+      {% else %}
+        {% for rec in recommendations %}
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="card-text">{{ rec.text }}</p>
+            </div>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
 
       <h4>Publications</h4>
       <div class="row">
