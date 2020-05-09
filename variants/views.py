@@ -20,8 +20,11 @@ class VariantListView(LoginRequiredMixin, ListView):
     context_object_name = "user_variant_list"
     template_name = "variants/variant_list.html"
 
+    class Meta:
+        ordering = ['id']
+
     def get_queryset(self):
-        user_variants = UserVariant.objects.filter(user=self.request.user)
+        user_variants = UserVariant.objects.filter(user=self.request.user).order_by("id")
         paginator = Paginator(user_variants, 20)
         page = self.request.GET.get("page")
 
