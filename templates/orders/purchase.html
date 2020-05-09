@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+
+{% block title %}Orders{% endblock title %}
+
+{% block content %}
+  <h1>Purchase premium access</h1>
+  <ul class="list-group">
+    <li class="list-group-item">Get our expert recommendations</li>
+    <li class="list-group-item">Weekly email with tips for nutrition and exercise</li>
+    <li class="list-group-item">And much more!</li>
+  </ul>
+  <br>
+  <p>Lifetime access for just $39.99</p>
+  <form action="{% url 'charge' %}" method="post">
+    {% csrf_token %}
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="{{ stripe_key }}"
+        data-description="Premium access"
+        data-amount="3900"
+        data-locale="auto">
+    </script>
+  </form>
+{% endblock content %}

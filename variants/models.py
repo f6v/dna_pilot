@@ -11,8 +11,11 @@ class UserVariant(models.Model):
     genotype = models.CharField(max_length=2)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,)
 
-    def publications(self):
-        pass
+    class Meta:
+        permissions = [
+            ('premium_status', 'Access to premium features'),
+        ]
+
 
     def __str__(self):
         return self.rsid
